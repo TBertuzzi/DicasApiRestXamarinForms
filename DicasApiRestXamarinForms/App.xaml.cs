@@ -1,4 +1,5 @@
 ﻿using System;
+using MonkeyCache.SQLite;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -9,6 +10,8 @@ namespace DicasApiRestXamarinForms
         public App()
         {
             InitializeComponent();
+
+            Barrel.ApplicationId = "PokemonCache";
 
             MainPage = new MainPage();
         }
