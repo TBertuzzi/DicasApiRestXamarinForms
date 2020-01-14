@@ -12,6 +12,8 @@ using DicasApiRestXamarinForms.Services.Tradicional;
 using DicasApiRestXamarinForms.Services.XamarinHelpers;
 using MonkeyCache.SQLite;
 using Refit;
+using Xamarin.Essentials;
+using Xamarin.Forms;
 using Xamarin.Helpers;
 
 namespace DicasApiRestXamarinForms.ViewModels
@@ -27,6 +29,9 @@ namespace DicasApiRestXamarinForms.ViewModels
         public MainViewModel()
         {
             Titulo = "Consumindo API";
+
+            //Xamarin Essentials
+            Connectivity.ConnectivityChanged += Connectivity_ConnectivityChanged;
 
             Pokemons = new ObservableCollection<Pokemon>();
 
@@ -152,6 +157,14 @@ namespace DicasApiRestXamarinForms.ViewModels
                 return null;
 
             }
+        }
+
+        async void Connectivity_ConnectivityChanged(object sender, ConnectivityChangedEventArgs e)
+        {
+            var IsNotConnected = e.NetworkAccess != NetworkAccess.Internet;
+
+            if (IsNotConnected)
+                await Application.Current.MainPage.DisplayAlert("Atenção", "Estamos sem internet :(", "OK");
         }
 
     }
